@@ -23,9 +23,26 @@ namespace cryptolib
             return bytes.ToBase64String();
         }
 
+        public static string HexStringXORHexString(this string string1, string string2)
+        {
+            if (string1.Length != string2.Length)
+                throw new ArgumentException("The hex strings should be the same length");
+
+            var byteArray1 = string1.HexStringToByteArray();
+            var byteArray2 = string2.HexStringToByteArray();
+            var outputArray = new byte[byteArray1.Length];
+
+            for(int i = 0; i < byteArray1.Length; ++i)
+            {
+                outputArray[i] =(byte)(byteArray1[i] ^ byteArray2[i]);
+            }
+
+            return outputArray.ToHexString();
+        }
+
         public static string ToHexString(this byte[] input)
         {
-              return BitConverter.ToString(input).Replace("-","");
+              return BitConverter.ToString(input).Replace("-","").ToLower();
         }
 
         public static string ToBase64String( this byte[] input)

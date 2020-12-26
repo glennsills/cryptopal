@@ -52,7 +52,7 @@ namespace unittests
         public void ByteArrayToHexStringReturnsCorrectValue()
         {
             var sut = new Byte[]{01, 09, 0xa0};
-            sut.ToHexString().Should().Be("0109A0");
+            sut.ToHexString().Should().Be("0109a0");
         }
 
         [Fact]
@@ -72,13 +72,26 @@ namespace unittests
         }
 
         [Fact]
-        public void Set1Challenge1()
+        public void HexStringsMustBeSameLengthToXor()
         {
-            var testString = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
-            var expectedResult = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
+            var string1 = "010101";
+            var string2 = "01";
 
-            var result = testString.HexStringToBase64();
-            result.Should().Be(expectedResult);
+             string1.Invoking(y => y.HexStringXORHexString(string2))
+             .Should().Throw<ArgumentException>().
+             WithMessage("The hex strings should be the same length");
         }
+
+        [Fact]
+        public void HexStringXORHexString()
+        {
+            var string1 = "111111";
+            var string2 = "010101";
+            
+            string1.HexStringXORHexString(string2)
+            .Should()
+            .NotBeNullOrEmpty();
+        }
+
      }
 }
