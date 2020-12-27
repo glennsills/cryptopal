@@ -93,5 +93,12 @@ namespace unittests
             .NotBeNullOrEmpty();
         }
 
+        [Fact]
+        public void ScoreText()
+        {
+            var text = "xxxx";
+            text.Score().Should().Be(80);
+        }
+
      }
 }

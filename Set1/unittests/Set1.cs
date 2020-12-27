@@ -26,5 +26,15 @@ namespace unittests
             var result = string1.HexStringXORHexString(string2);
             result.Should().Be(expectedResult);
         }
+
+        [Fact]
+        public void Challenge3()
+        {
+            var cypherText = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
+            var expectedResult = "Cooking MC's like a pound of bacon";
+
+            var result = cypherText.XorDecode();
+            result.Message.Should().Be(expectedResult);
+        }
     }
 }
